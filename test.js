@@ -4,7 +4,6 @@ const test = require('tap').test
 const fastify = require('fastify')
 const makeExecutableSchema = require('graphql-tools').makeExecutableSchema
 const request = require('request')
-const fastifyApollo = require('./index')
 
 const typeDefs = `
 type Query {
@@ -34,7 +33,7 @@ test('GET /graphql', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, opts)
+  server.register(require('./index'), opts)
 
   server.listen(0, err => {
     t.error(err)
@@ -55,7 +54,7 @@ test('POST /graphql', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, opts)
+  server.register(require('./index'), opts)
 
   server.listen(0, err => {
     t.error(err)
@@ -86,7 +85,7 @@ test('POST /graphql (error)', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, opts)
+  server.register(require('./index'), opts)
 
   server.listen(0, err => {
     t.error(err)
@@ -117,7 +116,7 @@ test('GET /graphiql (options as boolean)', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, opts)
+  server.register(require('./index'), opts)
 
   server.listen(0, err => {
     t.error(err)
@@ -139,7 +138,7 @@ test('GET /graphiql (options as object)', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, opts)
+  server.register(require('./index'), opts)
 
   server.listen(0, err => {
     t.error(err)
@@ -161,7 +160,7 @@ test('GET /schema', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, Object.assign({}, opts, {
+  server.register(require('./index'), Object.assign({}, opts, {
     printSchema: true
   }))
 
@@ -185,7 +184,7 @@ test('prefix', t => {
 
   const server = fastify()
 
-  server.register(fastifyApollo, Object.assign({}, opts, {
+  server.register(require('./index'), Object.assign({}, opts, {
     prefix: '/api',
     printSchema: true
   }))
